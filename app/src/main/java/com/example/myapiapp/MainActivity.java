@@ -3,9 +3,12 @@ package com.example.myapiapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -84,17 +87,35 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        private void parseandDisplayRepos(String json) {
-            List<GithubRepository> repositories = NetworkUtil.parseGithubRepos(json);
-            StringBuilder sb = new StringBuilder();
+        private void parseandDisplayRepos(String json) 
+        {
+           List<GithubRepository> repositories = NetworkUtil.parseGithubRepos(json);
+            SpannableStringBuilder sb = new SpannableStringBuilder();
 
             for (GithubRepository repository : repositories) {
-                sb.append("id: ").append(repository.getId()).append("\n")
-                        .append("Name: ").append(repository.getName()).append("\n")
-                        .append("Description: ").append(repository.getDescription()).append("\n\n");
+                String idText = "ID: " + repository.getId() + "\n";
+                String nameText = "Name: " + repository.getName() + "\n";
+                String descriptionText = "Description: " + repository.getDescription() + "\n\n";
+
+                // Create spans to set different text colors
+                ForegroundColorSpan idColor = new ForegroundColorSpan(Color.YELLOW); // Change to your desired color
+                ForegroundColorSpan nameColor = new ForegroundColorSpan(Color.RED); // Change to your desired color
+                ForegroundColorSpan descriptionColor = new ForegroundColorSpan(Color.GREEN); // Change to your desired color
+
+                // Apply spans to the respective parts of the text
+                sb.append(idText);
+                sb.setSpan(idColor, sb.length() - idText.length(), sb.length(), 0);
+
+                sb.append(nameText);
+                sb.setSpan(nameColor, sb.length() - nameText.length(), sb.length(), 0);
+
+                sb.append(descriptionText);
+                sb.setSpan(descriptionColor, sb.length() - descriptionText.length(), sb.length(), 0);
             }
 
-            textview.setText(sb.toString()); // Set text directly on the TextView
+            // Set the styled text to the TextView
+            TextView textView = findViewById(R.id.tv_output);
+            textView.setText(sb);
         }
     }
 }
