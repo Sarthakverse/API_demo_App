@@ -9,7 +9,7 @@
 ### JSON Format Presentation: Data fetched from the server is presented in a user-friendly JSON format.
 
 ### Getting Started
-#### Clone the Repository:
+### Clone the Repository: https://github.com/Sarthakverse/GitHub-API-Data-Fetcher.git
 ### Run the App:
 #### Open the project in Android Studio.
 #### Build and run the app on your Android device or emulator.
